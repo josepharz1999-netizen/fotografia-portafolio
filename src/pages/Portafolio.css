@@ -1,0 +1,494 @@
+.portafolio {
+  animation: fadeIn 0.6s ease-out;
+  padding-bottom: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.portafolio h1 {
+  font-size: 2.5rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  color: #1a1a1a;
+}
+
+.subtitulo {
+  text-align: center;
+  color: #666;
+  margin-bottom: 3rem;
+  font-size: 1rem;
+}
+
+.albumes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.album-card {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eaeaea;
+  display: flex;
+  flex-direction: column;
+}
+
+.album-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+.album-image {
+  width: 100%;
+  height: 220px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  overflow: hidden;
+}
+
+.album-portada {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.album-card:hover .album-portada {
+  transform: scale(1.05);
+}
+
+.album-card h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 1rem 1rem 0.25rem;
+  color: #1a1a1a;
+}
+
+.album-card p {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0 1rem;
+  line-height: 1.4;
+}
+
+.fotos-count {
+  font-size: 0.8rem;
+  color: #888;
+  margin: 0.5rem 1rem;
+  font-weight: 400;
+}
+
+.album-botones {
+  display: flex;
+  gap: 0.8rem;
+  padding: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.btn-carrusel, .btn-galeria {
+  flex: 1;
+  padding: 0.7rem 0.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.btn-carrusel {
+  background: #1a1a1a;
+  color: white;
+}
+
+.btn-carrusel:hover {
+  background: #000;
+  transform: scale(1.02);
+}
+
+.btn-galeria {
+  background: #f5f5f5;
+  color: #1a1a1a;
+  border: 1px solid #e0e0e0;
+}
+
+.btn-galeria:hover {
+  background: #e8e8e8;
+  transform: scale(1.02);
+}
+
+.carrusel-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.carrusel-container {
+  width: 90%;
+  max-width: 1100px;
+  background: transparent;
+  position: relative;
+}
+
+.carrusel-cerrar {
+  position: absolute;
+  top: -50px;
+  right: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carrusel-cerrar:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.carrusel-titulo {
+  color: white;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+.carrusel-principal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.carrusel-nav {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 2.5rem;
+  width: 50px;
+  height: 80px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carrusel-nav:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.carrusel-imagen-container {
+  position: relative;
+  flex: 1;
+  max-width: 800px;
+}
+
+.carrusel-imagen {
+  width: 100%;
+  height: auto;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #1a1a1a;
+}
+
+.carrusel-contador {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+}
+
+.carrusel-miniaturas {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.miniatura {
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.miniatura img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.miniatura.activa {
+  border-color: #fff;
+  transform: scale(1.05);
+}
+
+.miniatura:hover {
+  transform: scale(1.05);
+}
+
+.carrusel-autoplay-control {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.autoplay-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.autoplay-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.galeria-completa {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  animation: fadeIn 0.4s ease;
+}
+
+.galeria-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.galeria-header h2 {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.cerrar-galeria {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #888;
+  transition: color 0.2s;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cerrar-galeria:hover {
+  color: #000;
+}
+
+.galeria-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.foto-card {
+  background: #fafafa;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s;
+  border: 1px solid #f0f0f0;
+}
+
+.foto-card:hover {
+  transform: translateY(-4px);
+}
+
+.foto-placeholder {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #e0e0e0;
+  overflow: hidden;
+}
+
+.foto-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.foto-card:hover .foto-placeholder img {
+  transform: scale(1.05);
+}
+
+.foto-card p {
+  padding: 0.75rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #5a5a5a;
+  margin: 0;
+}
+
+.ver-mas-container {
+  text-align: center;
+  margin-top: 2rem;
+  padding: 1rem 0;
+}
+
+.btn-ver-mas {
+  background: #1a1a1a;
+  color: white;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-ver-mas:hover {
+  background: #000;
+  transform: scale(1.02);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .portafolio {
+    padding: 1rem;
+  }
+  
+  .portafolio h1 {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+  
+  .subtitulo {
+    font-size: 0.9rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .albumes-grid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+  
+  .album-card {
+    border-radius: 12px;
+  }
+  
+  .album-image {
+    height: 180px;
+  }
+  
+  .album-card h3 {
+    font-size: 1.2rem;
+  }
+  
+  .album-card p {
+    font-size: 0.85rem;
+  }
+  
+  .album-botones {
+    flex-direction: row;
+    gap: 0.5rem;
+    padding: 0.8rem;
+  }
+  
+  .btn-carrusel, .btn-galeria {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
+  
+  .carrusel-nav {
+    font-size: 1.8rem;
+    width: 40px;
+    height: 60px;
+  }
+  
+  .miniatura {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .galeria-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+  }
+  
+  .galeria-header h2 {
+    font-size: 1.3rem;
+  }
+  
+  .btn-ver-mas {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .album-botones {
+    flex-direction: column;
+  }
+  
+  .carrusel-nav {
+    width: 30px;
+    height: 45px;
+    font-size: 1.2rem;
+  }
+  
+  .carrusel-titulo {
+    font-size: 1rem;
+  }
+  
+  .miniatura {
+    width: 40px;
+    height: 40px;
+  }
+}

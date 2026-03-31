@@ -1,0 +1,286 @@
+.contacto {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.contacto-moderno {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.contacto-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.contacto-header h1 {
+  font-size: 2.8rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.contacto-header p {
+  color: #6c6c6c;
+  font-size: 1rem;
+}
+
+.contacto-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.info-tarjeta {
+  background: #fbfbfb;
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid #f0f0f0;
+}
+
+.info-tarjeta h3 {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.contacto-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.contacto-item:last-child {
+  border-bottom: none;
+}
+
+.icon-wrapper {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #eaeaea;
+}
+
+.icon-wrapper svg {
+  width: 22px;
+  height: 22px;
+  stroke: #1a1a1a;
+  stroke-width: 1.5;
+  fill: none;
+}
+
+.contacto-info-text {
+  flex: 1;
+}
+
+.contacto-info-text .label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #8f8f8f;
+  margin-bottom: 0.25rem;
+}
+
+.contacto-info-text .value {
+  font-size: 1rem;
+  font-weight: 450;
+  color: #1a1a1a;
+  text-decoration: none;
+}
+
+.contacto-info-text a.value:hover {
+  color: #000;
+}
+
+.social-section {
+  margin-top: 2rem;
+  padding-top: 1rem;
+}
+
+.social-section h4 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #8f8f8f;
+  margin-bottom: 1rem;
+}
+
+.social-links-modern {
+  display: flex;
+  gap: 1.2rem;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #eaeaea;
+  transition: all 0.2s ease;
+}
+
+.social-link:hover {
+  transform: translateY(-2px);
+  border-color: #d0d0d0;
+}
+
+.social-link svg {
+  width: 18px;
+  height: 18px;
+  stroke: #1a1a1a;
+  stroke-width: 1.5;
+  fill: none;
+}
+
+.formulario-moderno {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid #f0f0f0;
+}
+
+.formulario-moderno h3 {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.input-moderno {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  background: #fefefe;
+}
+
+.input-moderno:focus {
+  outline: none;
+  border-color: #aaa;
+}
+
+textarea.input-moderno {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.btn-moderno {
+  background: #1a1a1a;
+  color: white;
+  padding: 0.9rem 1.5rem;
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background 0.2s;
+}
+
+.btn-moderno:hover {
+  background: #000;
+}
+
+.mensaje-exito-moderno {
+  background: #e6f7e6;
+  color: #1e5c1e;
+  padding: 0.8rem;
+  margin-top: 1rem;
+  text-align: center;
+  border-radius: 12px;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+  .contacto-moderno {
+    padding: 0 0.5rem;
+  }
+  
+  .contacto-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .contacto-header p {
+    font-size: 0.9rem;
+    padding: 0 1rem;
+  }
+  
+  .contacto-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .info-tarjeta {
+    padding: 1.2rem;
+  }
+  
+  .info-tarjeta h3 {
+    font-size: 1.2rem;
+  }
+  
+  .contacto-item {
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  .icon-wrapper {
+    width: 38px;
+    height: 38px;
+  }
+  
+  .icon-wrapper svg {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .contacto-info-text .label {
+    font-size: 0.7rem;
+  }
+  
+  .contacto-info-text .value {
+    font-size: 0.9rem;
+  }
+  
+  .social-links-modern {
+    gap: 0.8rem;
+  }
+  
+  .social-link {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .formulario-moderno {
+    padding: 1.2rem;
+  }
+  
+  .formulario-moderno h3 {
+    font-size: 1.2rem;
+  }
+  
+  .input-moderno {
+    padding: 0.7rem 0.8rem;
+    font-size: 0.85rem;
+  }
+  
+  .btn-moderno {
+    padding: 0.7rem;
+    font-size: 0.85rem;
+  }
+  
+  .mensaje-exito-moderno {
+    padding: 0.6rem;
+    font-size: 0.8rem;
+  }
+}
