@@ -27,7 +27,6 @@
   color: white;
 }
 
-/* Versión para móvil */
 @media (max-width: 768px) {
   .whatsapp-button {
     width: 50px;
