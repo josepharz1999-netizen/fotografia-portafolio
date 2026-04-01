@@ -142,8 +142,7 @@ function Inicio({ setActiveSection }) {
   return (
     <div className="inicio">
       <div className="hero">
-        <h1>Capturando momentos únicos</h1>
-        <p>Fotografía con sensibilidad, luz y presencia. Cada imagen cuenta una historia.</p>
+        <h1>FotoArt Studio</h1>
         <button className="btn-primary" onClick={() => setActiveSection('portafolio')}>
           Ver todo el portafolio
         </button>
