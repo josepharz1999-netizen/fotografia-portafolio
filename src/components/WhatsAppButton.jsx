@@ -2,9 +2,9 @@ import React from 'react';
 import './WhatsAppButton.css';
 
 function WhatsAppButton() {
-  // Reemplaza este número con tu número de WhatsApp (incluye código de país)
-  // Formato: código país + número sin espacios ni símbolos
-  const numeroWhatsApp = "521234567890"; // Ejemplo: México +52 1234567890
+  // Número de WhatsApp Paraguay
+  const numeroWhatsApp = "595994329783";
+  
   const mensaje = encodeURIComponent("Hola, me interesa saber más sobre tus servicios de fotografía.");
   const url = `https://wa.me/${numeroWhatsApp}?text=${mensaje}`;
 
