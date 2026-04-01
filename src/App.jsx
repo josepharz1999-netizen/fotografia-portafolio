@@ -3,7 +3,8 @@ import './App.css';
 import Navbar from './components/Navbar';
 import Inicio from './pages/Inicio';
 import Portafolio from './pages/Portafolio';
-import Contacto from './pages/Contacto';  // Esta página ahora tiene todo
+import Contacto from './pages/Contacto';
+import WhatsAppButton from './components/WhatsAppButton';
 
 function App() {
   const [activeSection, setActiveSection] = useState('inicio');
@@ -16,6 +17,7 @@ function App() {
         {activeSection === 'portafolio' && <Portafolio />}
         {activeSection === 'contacto' && <Contacto />}
       </main>
+      <WhatsAppButton />
     </div>
   );
 }
