@@ -5,6 +5,7 @@ import Inicio from './pages/Inicio';
 import Portafolio from './pages/Portafolio';
 import Cotizar from './pages/Cotizar';
 import Contacto from './pages/Contacto';
+import WhatsAppButton from './components/WhatsAppButton';
 
 function App() {
   const [activeSection, setActiveSection] = useState('inicio');
@@ -18,6 +19,7 @@ function App() {
         {activeSection === 'cotizar' && <Cotizar />}
         {activeSection === 'contacto' && <Contacto />}
       </main>
+      <WhatsAppButton />
     </div>
   );
 }
