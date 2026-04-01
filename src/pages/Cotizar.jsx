@@ -43,23 +43,43 @@ function Cotizar() {
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Nombre completo *</label>
-            <input type="text" name="nombre" required value={formData.nombre} onChange={handleChange} />
+            <input 
+              type="text" 
+              name="nombre" 
+              required 
+              value={formData.nombre} 
+              onChange={handleChange}
+              placeholder="Escribe tu nombre completo"
+            />
           </div>
 
           <div className="form-group">
             <label>Email *</label>
-            <input type="email" name="email" required value={formData.email} onChange={handleChange} />
+            <input 
+              type="email" 
+              name="email" 
+              required 
+              value={formData.email} 
+              onChange={handleChange}
+              placeholder="tucorreo@ejemplo.com"
+            />
           </div>
 
           <div className="form-group">
             <label>Teléfono</label>
-            <input type="tel" name="telefono" value={formData.telefono} onChange={handleChange} />
+            <input 
+              type="tel" 
+              name="telefono" 
+              value={formData.telefono} 
+              onChange={handleChange}
+              placeholder="+595 994 329 783"
+            />
           </div>
 
           <div className="form-group">
             <label>Tipo de servicio *</label>
             <select name="tipoServicio" required value={formData.tipoServicio} onChange={handleChange}>
-              <option value="">Selecciona</option>
+              <option value="">Selecciona una opción</option>
               <option value="boda">Boda / Evento</option>
               <option value="retrato">Retrato / Sesión</option>
               <option value="producto">Producto / Comercial</option>
@@ -70,28 +90,43 @@ function Cotizar() {
 
           <div className="form-group">
             <label>Fecha estimada</label>
-            <input type="date" name="fechaEvento" value={formData.fechaEvento} onChange={handleChange} />
+            <input 
+              type="date" 
+              name="fechaEvento" 
+              value={formData.fechaEvento} 
+              onChange={handleChange}
+            />
           </div>
 
           <div className="form-group">
             <label>Mensaje / Detalles</label>
-            <textarea name="mensaje" rows="4" value={formData.mensaje} onChange={handleChange}></textarea>
+            <textarea 
+              name="mensaje" 
+              rows="4" 
+              value={formData.mensaje} 
+              onChange={handleChange}
+              placeholder="Cuéntame más sobre lo que necesitas..."
+            ></textarea>
           </div>
 
           <button type="submit" className="btn-submit">Enviar cotización</button>
 
-          {enviado && <div className="mensaje-exito">✓ Cotización enviada. Te contactaré en breve.</div>}
+          {enviado && (
+            <div className="mensaje-exito">
+              ✓ ¡Cotización enviada con éxito! Te contactaré en breve.
+            </div>
+          )}
         </form>
       </div>
 
       <div className="info-adicional">
         <h3>Paquetes referenciales</h3>
         <ul>
-          <li>📷 Básico – 2h cobertura + 50 fotos editadas · $200</li>
-          <li>✨ Premium – 4h cobertura + 100 fotos + álbum físico · $350</li>
-          <li>🎥 Elite – Cobertura completa + video + álbum de lujo · $500</li>
+          <li><strong>📷 Básico</strong> – 2h cobertura + 50 fotos editadas · <strong>$200</strong></li>
+          <li><strong>✨ Premium</strong> – 4h cobertura + 100 fotos + álbum físico · <strong>$350</strong></li>
+          <li><strong>🎥 Elite</strong> – Cobertura completa + video + álbum de lujo · <strong>$500</strong></li>
         </ul>
-        <p>*Cotización personalizada según tus necesidades.</p>
+        <p className="nota">*Cotización personalizada según tus necesidades.</p>
       </div>
     </div>
   );
