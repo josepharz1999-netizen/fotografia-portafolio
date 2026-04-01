@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Cotizar.css';
+import '../styles-pages.css';
 
 function Cotizar() {
   const [formData, setFormData] = useState({
@@ -35,98 +35,130 @@ function Cotizar() {
   };
 
   return (
-    <div className="cotizar">
-      <h1>Solicita una cotización</h1>
-      <p className="subtitulo">Cuéntame sobre tu proyecto y te responderé pronto.</p>
+    <div className="contact-quote-section">
+      <h1 className="cotizar-title">Solicita una cotización</h1>
+      <p className="cotizar-subtitle">Cuéntame sobre tu proyecto y te responderé pronto.</p>
 
-      <div className="formulario-container">
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Nombre completo *</label>
-            <input 
-              type="text" 
-              name="nombre" 
-              required 
-              value={formData.nombre} 
-              onChange={handleChange}
-              placeholder="Escribe tu nombre completo"
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Email *</label>
-            <input 
-              type="email" 
-              name="email" 
-              required 
-              value={formData.email} 
-              onChange={handleChange}
-              placeholder="tucorreo@ejemplo.com"
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Teléfono</label>
-            <input 
-              type="tel" 
-              name="telefono" 
-              value={formData.telefono} 
-              onChange={handleChange}
-              placeholder="+595 994 329 783"
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Tipo de servicio *</label>
-            <select name="tipoServicio" required value={formData.tipoServicio} onChange={handleChange}>
-              <option value="">Selecciona una opción</option>
-              <option value="boda">Boda / Evento</option>
-              <option value="retrato">Retrato / Sesión</option>
-              <option value="producto">Producto / Comercial</option>
-              <option value="paisaje">Paisaje / Viajes</option>
-              <option value="otro">Otro</option>
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label>Fecha estimada</label>
-            <input 
-              type="date" 
-              name="fechaEvento" 
-              value={formData.fechaEvento} 
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Mensaje / Detalles</label>
-            <textarea 
-              name="mensaje" 
-              rows="4" 
-              value={formData.mensaje} 
-              onChange={handleChange}
-              placeholder="Cuéntame más sobre lo que necesitas..."
-            ></textarea>
-          </div>
-
-          <button type="submit" className="btn-submit">Enviar cotización</button>
-
-          {enviado && (
-            <div className="mensaje-exito">
-              ✓ ¡Cotización enviada con éxito! Te contactaré en breve.
+      <div className="cotizar-form-container">
+        <form onSubmit={handleSubmit} className="cotizar-form">
+          <div className="contact-form">
+            <div className="form-field">
+              <label>Nombre completo *</label>
+              <input 
+                type="text" 
+                name="nombre" 
+                required 
+                value={formData.nombre} 
+                onChange={handleChange}
+                placeholder="Escribe tu nombre completo"
+              />
             </div>
-          )}
+
+            <div className="form-field">
+              <label>Email *</label>
+              <input 
+                type="email" 
+                name="email" 
+                required 
+                value={formData.email} 
+                onChange={handleChange}
+                placeholder="tucorreo@ejemplo.com"
+              />
+            </div>
+
+            <div className="form-field">
+              <label>Teléfono</label>
+              <input 
+                type="tel" 
+                name="telefono" 
+                value={formData.telefono} 
+                onChange={handleChange}
+                placeholder="+595 994 329 783"
+              />
+            </div>
+
+            <div className="form-field">
+              <label>Tipo de servicio *</label>
+              <select 
+                name="tipoServicio" 
+                required 
+                value={formData.tipoServicio} 
+                onChange={handleChange}
+              >
+                <option value="">Selecciona una opción</option>
+                <option value="boda">Boda / Evento</option>
+                <option value="retrato">Retrato / Sesión</option>
+                <option value="producto">Producto / Comercial</option>
+                <option value="paisaje">Paisaje / Viajes</option>
+                <option value="otro">Otro</option>
+              </select>
+            </div>
+
+            <div className="form-field">
+              <label>Fecha estimada</label>
+              <input 
+                type="date" 
+                name="fechaEvento" 
+                value={formData.fechaEvento} 
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="form-field">
+              <label>Mensaje / Detalles</label>
+              <textarea 
+                name="mensaje" 
+                rows="5" 
+                value={formData.mensaje} 
+                onChange={handleChange}
+                placeholder="Cuéntame más sobre lo que necesitas..."
+              ></textarea>
+            </div>
+
+            <button type="submit" className="form-submit-btn">
+              Enviar cotización
+            </button>
+
+            {enviado && (
+              <div className="success-message">
+                <span>✓</span> ¡Cotización enviada con éxito! Te contactaré en breve.
+              </div>
+            )}
+          </div>
         </form>
       </div>
 
-      <div className="info-adicional">
+      <div className="packages-section">
         <h3>Paquetes referenciales</h3>
-        <ul>
-          <li><strong>📷 Básico</strong> – 2h cobertura + 50 fotos editadas · <strong>$200</strong></li>
-          <li><strong>✨ Premium</strong> – 4h cobertura + 100 fotos + álbum físico · <strong>$350</strong></li>
-          <li><strong>🎥 Elite</strong> – Cobertura completa + video + álbum de lujo · <strong>$500</strong></li>
-        </ul>
-        <p className="nota">*Cotización personalizada según tus necesidades.</p>
+        <div className="packages-list">
+          <div className="package-item">
+            <span className="package-icon">📷</span>
+            <div className="package-content">
+              <span className="package-name">Básico</span>
+              <p className="package-description">2h cobertura + 50 fotos editadas</p>
+              <div className="package-price">$200</div>
+            </div>
+          </div>
+
+          <div className="package-item">
+            <span className="package-icon">✨</span>
+            <div className="package-content">
+              <span className="package-name">Premium</span>
+              <p className="package-description">4h cobertura + 100 fotos + álbum físico</p>
+              <div className="package-price">$350</div>
+            </div>
+          </div>
+
+          <div className="package-item">
+            <span className="package-icon">🎥</span>
+            <div className="package-content">
+              <span className="package-name">Elite</span>
+              <p className="package-description">Cobertura completa + video + álbum de lujo</p>
+              <div className="package-price">$500</div>
+            </div>
+          </div>
+        </div>
+        <p className="packages-note">*Cotización personalizada según tus necesidades.</p>
       </div>
     </div>
   );

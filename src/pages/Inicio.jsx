@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './Inicio.css';
+import '../styles.css';
+import SobreNosotros from './SobreNosotros';
 
 const albumesData = [
   {
@@ -80,53 +81,67 @@ function AlbumCarrusel({ album, onVerAlbum }) {
   };
 
   return (
-    <div className="album-card-inicio">
+    <div className="album-carousel-card">
+      {/* Overlay gradient */}
+      <div className="album-carousel-overlay"></div>
+
       <div 
-        className="album-carrusel"
+        className="carousel-image-container"
         onMouseEnter={pausarAutoplay}
         onMouseLeave={reanudarAutoplay}
       >
-        <div className="carrusel-imagenes">
+        <div style={{ position: 'relative', width: '100%', height: '100%' }}>
           {album.fotosPreview.map((foto, idx) => (
             <div
               key={idx}
-              className={`carrusel-slide ${idx === indiceActual ? 'active' : ''}`}
+              className={`carrusel-slide${idx === indiceActual ? ' active' : ''}`}
             >
               <img src={foto} alt={`${album.nombre} ${idx + 1}`} />
             </div>
           ))}
         </div>
         
-        <div className="carrusel-indicadores">
-          {album.fotosPreview.map((_, idx) => (
-            <button
-              key={idx}
-              className={`indicador ${idx === indiceActual ? 'active' : ''}`}
-              onClick={() => setIndiceActual(idx)}
-            />
-          ))}
-        </div>
-        
+        {/* Botones de navegación */}
         <button 
-          className="carrusel-btn anterior"
+          className="carousel-nav-btn left"
           onClick={() => setIndiceActual((prev) => (prev - 1 + album.fotosPreview.length) % album.fotosPreview.length)}
+          aria-label="Foto anterior"
         >
           ‹
         </button>
         <button 
-          className="carrusel-btn siguiente"
+          className="carousel-nav-btn right"
           onClick={() => setIndiceActual((prev) => (prev + 1) % album.fotosPreview.length)}
+          aria-label="Foto siguiente"
         >
           ›
         </button>
+
+        {/* Indicadores */}
+        <div className="carousel-indicators-container">
+          {album.fotosPreview.map((_, idx) => (
+            <button
+              key={idx}
+              className={`carousel-indicator-dot${idx === indiceActual ? ' active' : ''}`}
+              onClick={() => setIndiceActual(idx)}
+              aria-label={`Ir a foto ${idx + 1}`}
+            />
+          ))}
+        </div>
       </div>
       
-      <div className="album-info">
-        <h3>{album.nombre}</h3>
-        <p>{album.descripcion}</p>
-        <p className="fotos-count">{album.fotos} fotografías</p>
-        <button className="btn-ver-album" onClick={() => onVerAlbum(album.nombre)}>
-          Ver álbum →
+      <div className="album-carousel-content">
+        <h3 className="album-carousel-title">{album.nombre}</h3>
+        <p className="album-carousel-description">{album.descripcion}</p>
+        <p className="album-carousel-count">
+          <span>📷</span>
+          {album.fotos} fotografías
+        </p>
+        <button 
+          className="album-carousel-btn"
+          onClick={() => onVerAlbum(album.nombre)}
+        >
+          <span className="album-carousel-btn-text">Ver álbum →</span>
         </button>
       </div>
     </div>
@@ -141,16 +156,11 @@ function Inicio({ setActiveSection }) {
 
   return (
     <div className="inicio">
-      <div className="hero">
-        <h1>FotoArt Studio</h1>
-        <button className="btn-primary" onClick={() => setActiveSection('portafolio')}>
-          Ver todo el portafolio
-        </button>
-      </div>
-
-      <div className="albumes-destacados">
-        <h2 className="section-titulo">Álbumes destacados</h2>
-        <div className="albumes-grid-inicio">
+      <div className="inicio-section">
+        <h2 className="inicio-title">Álbumes destacados</h2>
+        <p className="inicio-subtitle">Explora nuestros trabajos más destacados</p>
+        
+        <div className="album-carousel-grid">
           {albumesData.map(album => (
             <AlbumCarrusel 
               key={album.id} 
@@ -160,6 +170,9 @@ function Inicio({ setActiveSection }) {
           ))}
         </div>
       </div>
+      
+      {/* Componente Sobre Nosotros */}
+      <SobreNosotros />
     </div>
   );
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-import './WhatsAppButton.css';
 
 function WhatsAppButton() {
   // Número de WhatsApp Paraguay
@@ -11,7 +10,7 @@ function WhatsAppButton() {
   return (
     <a
       href={url}
-      className="whatsapp-button"
+      className="fixed bottom-5 right-5 md:bottom-6 md:right-6 w-14 md:w-16 h-14 md:h-16 bg-green-500 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 z-40 cursor-pointer"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Contactar por WhatsApp"
@@ -19,7 +18,7 @@ function WhatsAppButton() {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 448 512"
-        className="whatsapp-icon"
+        className="w-8 md:w-9 h-8 md:h-9 text-white"
       >
         <path
           fill="currentColor"
