@@ -1,44 +1,63 @@
-.cotizar {
+/* Página combinada de Contacto y Cotización */
+.contacto-cotizar {
   animation: fadeIn 0.6s ease-out;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 1.5rem;
 }
 
-.cotizar h1 {
-  font-size: 2rem;
+.header-section {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.header-section h1 {
+  font-size: 2.5rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
-  text-align: center;
   color: #1a1a1a;
 }
 
-.subtitulo {
-  text-align: center;
+.header-section p {
   color: #666;
-  margin-bottom: 2rem;
   font-size: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-.formulario-container {
-  max-width: 720px;
-  margin: 0 auto;
+/* Layout de dos columnas */
+.two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* Columna del formulario */
+.formulario-columna {
   background: #ffffff;
   padding: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 24px;
   border: 1px solid #f0f0f0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+.formulario-columna h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  color: #1a1a1a;
 }
 
 .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
 }
 
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 500;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #1a1a1a;
 }
 
@@ -46,11 +65,11 @@
 .form-group select,
 .form-group textarea {
   width: 100%;
-  padding: 0.8rem 1rem;
+  padding: 0.75rem 1rem;
   border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  border-radius: 12px;
   font-family: inherit;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   background: #fefefe;
   transition: all 0.2s ease;
 }
@@ -71,11 +90,11 @@
 .btn-submit {
   background: #1a1a1a;
   color: white;
-  padding: 0.9rem;
+  padding: 0.85rem;
   width: 100%;
   border: none;
-  border-radius: 8px;
-  font-size: 1rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -90,54 +109,123 @@
 .mensaje-exito {
   background: #e6f7e6;
   color: #1e5c1e;
-  padding: 1rem;
+  padding: 0.8rem;
   margin-top: 1rem;
   text-align: center;
-  font-size: 0.9rem;
-  border-radius: 8px;
+  font-size: 0.85rem;
+  border-radius: 12px;
 }
 
-.info-adicional {
-  margin-top: 3rem;
-  padding: 2rem;
-  background: #fafafa;
-  border-radius: 16px;
-  border: 1px solid #f0f0f0;
+/* Paquetes mini */
+.paquetes-mini {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #f0f0f0;
 }
 
-.info-adicional h3 {
-  font-size: 1.3rem;
+.paquetes-mini h3 {
+  font-size: 1rem;
   font-weight: 500;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
   color: #1a1a1a;
 }
 
-.info-adicional ul {
+.paquetes-mini ul {
   list-style: none;
-  margin: 1rem 0 0 0;
   padding: 0;
+  margin: 0;
 }
 
-.info-adicional li {
-  padding: 0.8rem 0;
-  border-bottom: 1px solid #eaeaea;
-  font-size: 0.95rem;
-  color: #444;
+.paquetes-mini li {
+  padding: 0.4rem 0;
+  font-size: 0.85rem;
+  color: #555;
 }
 
-.info-adicional li:last-child {
-  border-bottom: none;
-}
-
-.info-adicional li strong {
+.paquetes-mini li strong {
   color: #1a1a1a;
 }
 
 .nota {
-  margin-top: 1rem;
-  font-size: 0.8rem;
+  margin-top: 0.8rem;
+  font-size: 0.7rem;
   color: #888;
   font-style: italic;
+}
+
+/* Columna de contacto */
+.contacto-columna {
+  background: #fbfbfb;
+  padding: 2rem;
+  border-radius: 24px;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+.contacto-columna h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  color: #1a1a1a;
+  text-align: center;
+}
+
+.contacto-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.contacto-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.icon-wrapper {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #eaeaea;
+}
+
+.icon-wrapper svg {
+  width: 22px;
+  height: 22px;
+  stroke: #1a1a1a;
+  stroke-width: 1.5;
+  fill: none;
+}
+
+.contacto-info-text {
+  flex: 1;
+}
+
+.contacto-info-text .label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #8f8f8f;
+  margin-bottom: 0.25rem;
+}
+
+.contacto-info-text .value {
+  font-size: 0.95rem;
+  font-weight: 450;
+  color: #1a1a1a;
+  text-decoration: none;
+  word-break: break-word;
+}
+
+.contacto-info-text a.value:hover {
+  color: #000;
+  text-decoration: underline;
 }
 
 @keyframes fadeIn {
@@ -151,56 +239,68 @@
   }
 }
 
-@media (max-width: 768px) {
-  .cotizar {
-    padding: 0.5rem;
+/* Responsive para móvil */
+@media (max-width: 900px) {
+  .two-columns {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
   
-  .cotizar h1 {
-    font-size: 1.6rem;
+  .contacto-cotizar {
+    padding: 1rem;
   }
   
-  .subtitulo {
+  .header-section h1 {
+    font-size: 1.8rem;
+  }
+  
+  .header-section p {
     font-size: 0.9rem;
     padding: 0 1rem;
   }
   
-  .formulario-container {
+  .formulario-columna,
+  .contacto-columna {
     padding: 1.2rem;
-    margin: 0 0.5rem;
   }
   
-  .form-group {
-    margin-bottom: 1rem;
+  .formulario-columna h2,
+  .contacto-columna h2 {
+    font-size: 1.3rem;
   }
   
-  .form-group label {
-    font-size: 0.85rem;
+  .icon-wrapper {
+    width: 42px;
+    height: 42px;
   }
   
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
+  .icon-wrapper svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .formulario-columna,
+  .contacto-columna {
+    padding: 1rem;
+  }
+  
+  .btn-submit {
     padding: 0.7rem;
     font-size: 0.9rem;
   }
   
-  .btn-submit {
-    padding: 0.8rem;
-    font-size: 0.9rem;
+  .contacto-item {
+    gap: 0.8rem;
   }
   
-  .info-adicional {
-    padding: 1.2rem;
-    margin: 1.5rem 0.5rem;
+  .icon-wrapper {
+    width: 38px;
+    height: 38px;
   }
   
-  .info-adicional h3 {
-    font-size: 1.1rem;
-  }
-  
-  .info-adicional li {
+  .contacto-info-text .value {
     font-size: 0.85rem;
-    padding: 0.6rem 0;
   }
 }
