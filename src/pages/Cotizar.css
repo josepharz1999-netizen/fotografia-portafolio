@@ -3,12 +3,13 @@
   animation: fadeIn 0.6s ease-out;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 1.5rem;
+  padding: 1rem 2rem 2rem 2rem;
 }
 
 .header-section {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
+  margin-top: 0;
 }
 
 .header-section h1 {
