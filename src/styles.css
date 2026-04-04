@@ -2,7 +2,8 @@
    ESTILOS GLOBALES CONSOLIDADOS - FOTOGRAFIA PORTAFOLIO
    ============================================================================ */
 
-/* Variables CSS */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+   /* Variables CSS */
 :root {
   /* Colores */
   --color-black: #000000;
@@ -67,7 +68,6 @@ body {
   overflow-x: hidden;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 /* ============================================================================
    LAYOUT PRINCIPAL

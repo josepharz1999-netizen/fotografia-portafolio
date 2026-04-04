@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/Navbar';
 import HeroBanner from './components/HeroBanner';
@@ -9,25 +10,54 @@ import Cotizar from './pages/Cotizar';
 import Contacto from './pages/Contacto';
 import WhatsAppButton from './components/WhatsAppButton';
 
+
+
 function App() {
-  const [activeSection, setActiveSection] = useState('inicio');
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const element = document.querySelector(location.hash);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [location]);
 
   return (
     <div className="App">
-      {/* Header fijo */}
-      <Navbar setActiveSection={setActiveSection} activeSection={activeSection} />
-      
-      {/* Hero Banner - Sólo en la página de inicio */}
-      {activeSection === 'inicio' && <HeroBanner setActiveSection={setActiveSection} />}
-      
-      {/* Contenido principal */}
-      <main className={`main-content ${activeSection}`}>
-        <div className="container">
-          {activeSection === 'inicio' && <Inicio setActiveSection={setActiveSection} />}
-          {activeSection === 'portafolio' && <Portafolio />}
-          {activeSection === 'cotizar' && <Cotizar />}
-          {activeSection === 'contacto' && <Contacto />}
-        </div>
+      <Navbar />
+
+      <main className="main-content">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <HeroBanner />
+                <div className="container">
+                  <Inicio />
+                </div>
+              </>
+            }
+          />
+          <Route path="/portafolio" element={<Portafolio />} />
+          <Route path="/cotizar" element={<Cotizar />} />
+          <Route path="/contacto" element={<Contacto />} />
+          <Route
+            path="*"
+            element={
+              <>
+                <HeroBanner />
+                <div className="container">
+                  <Inicio />
+                </div>
+              </>
+            }
+          />
+        </Routes>
       </main>
 
       {/* Footer */}

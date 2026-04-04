@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function HeroBanner({ setActiveSection }) {
+function HeroBanner() {
+  const navigate = useNavigate();
   const [scrollY, setScrollY] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const containerRef = useRef(null);
@@ -203,7 +205,7 @@ function HeroBanner({ setActiveSection }) {
             {/* Botones con más espacio inferior */}
             <div className="flex gap-6 justify-center flex-wrap mb-20">
               <button
-                onClick={() => setActiveSection('portafolio')}
+                onClick={() => navigate('/portafolio')}
                 className="group px-10 py-3.5 bg-white text-black font-medium rounded-full flex items-center gap-2 transition-all duration-300 hover:bg-gray-100 hover:shadow-xl hover:-translate-y-1"
               >
                 <span>Ver Portafolio</span>
@@ -211,7 +213,7 @@ function HeroBanner({ setActiveSection }) {
               </button>
 
               <button
-                onClick={() => setActiveSection('cotizar')}
+                onClick={() => navigate('/contacto')}
                 className="px-8 py-3.5 bg-transparent text-white font-medium rounded-full border border-white/60 transition-all duration-300 hover:bg-white hover:text-black hover:-translate-y-1"
               >
                 Reservar Sesión

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../styles-pages.css';
 
 function SobreNosotros() {
@@ -14,16 +15,18 @@ function SobreNosotros() {
         {/* Contenido principal */}
         <div className="about-content-grid">
           <div className="about-text-block">
-            <h2>Nuestra Historia</h2>
+            <h2>Mi Historia</h2>
             <p>
-              FotoArt Studio comenzó como un sueño compartido de capturar los momentos más especiales de la vida a través del lente. 
-              Desde nuestros inicios en 2015, nos hemos dedicado a proporcionar servicios fotográficos de calidad profesional, 
-              combinando técnica artística con emoción y creatividad.
+              Hola, soy Joseph. Detrás de FotoArt Studio no hay una gran empresa ni un equipo de profesionales con años de estudio. Estoy yo solo, con mi cámara, mi computadora y muchas ganas de hacer algo bonito.
             </p>
             <p>
-              Cada proyecto es único y especial para nosotros. Creemos que la fotografía no solo captura imágenes, sino que preserva 
-              emociones, historias y recuerdos que perduran en el tiempo. Nuestro equipo apasionado trabaja incansablemente para 
-              asegurar que cada sesión sea una experiencia inolvidable.
+              Empecé en 2017, por hobby, sin pensar que la fotografía se convertiría en algo tan importante para mí. Me gusta crear imágenes que emocionen, que cuenten algo real. No busco la perfección técnica, busco esa chispa que hace que una foto valga más que mil palabras.
+            </p>
+            <p>
+              Trabajo con lo que tengo, pero lo doy todo. Si confías en mí para tus recuerdos, te prometo que me voy a esforzar como si fueran míos.
+            </p>
+            <p>
+              Gracias por llegar hasta acá.
             </p>
           </div>
 
@@ -36,11 +39,12 @@ function SobreNosotros() {
 
         {/* Misión */}
         <div className="about-mission">
-          <h2>Nuestra Misión</h2>
+          <h2>Mi Misión</h2>
           <p>
-            Transformar momentos ordinarios en extraordinarios, proporcionando fotografía de clase mundial que permite a nuestros 
-            clientes revivir sus memorias más preciadas una y otra vez. Nos comprometemos a la excelencia, la creatividad y la 
-            satisfacción completa del cliente en cada proyecto.
+            Mi misión es simple: ayudarte a conservar tus mejores recuerdos sin que tengas que gastar una fortuna ni pasar por un proceso frío o complicado.
+          </p>
+          <p>
+            No aspiro a ser el mejor fotógrafo del mundo. Solo quiero ser el fotógrafo que eliges cuando lo importante no es la cámara, sino lo que hay detrás de ella.
           </p>
         </div>
 
@@ -55,10 +59,10 @@ function SobreNosotros() {
           </div>
 
           <div className="about-feature-card">
-            <div className="about-feature-icon">⚡</div>
-            <h3 className="about-feature-title">Profesionalismo Impecable</h3>
+            <div className="about-feature-icon">🎯</div>
+            <h3 className="about-feature-title">Dedicación Total</h3>
             <p className="about-feature-description">
-              Con equipos de última tecnología y técnicas avanzadas, garantizamos resultados de calidad profesional en cada proyecto.
+              Cada proyecto recibe la misma atención y esmero, sin importar su tamaño o presupuesto.
             </p>
           </div>
 
@@ -83,7 +87,7 @@ function SobreNosotros() {
         <div className="about-cta">
           <h2>Listo para crear recuerdos?</h2>
           <p>Contáctanos hoy para discutir tu próximo proyecto fotográfico</p>
-          <a href="#cotizar" className="about-cta-button">Solicitar Cotización</a>
+          <Link to="/contacto" className="about-cta-button">Solicitar Cotización</Link>
         </div>
       </div>
     </div>

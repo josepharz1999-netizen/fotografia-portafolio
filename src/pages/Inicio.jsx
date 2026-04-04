@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles.css';
 import SobreNosotros from './SobreNosotros';
 
@@ -148,10 +149,12 @@ function AlbumCarrusel({ album, onVerAlbum }) {
   );
 }
 
-function Inicio({ setActiveSection }) {
+function Inicio() {
+  const navigate = useNavigate();
+
   const irAPortafolio = (albumNombre) => {
     sessionStorage.setItem('albumSeleccionado', albumNombre);
-    setActiveSection('portafolio');
+    navigate('/portafolio');
   };
 
   return (

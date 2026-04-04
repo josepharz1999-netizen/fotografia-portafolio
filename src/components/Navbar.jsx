@@ -1,39 +1,25 @@
 import React, { useState } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 import '../styles.css';
 
-function Navbar({ setActiveSection, activeSection }) {
+function Navbar() {
   const [menuAbierto, setMenuAbierto] = useState(false);
-  const [subsectionActiva, setSubsectionActiva] = useState(null);
+  const location = useLocation();
 
   const navItems = [
-    { id: 'inicio', label: 'Inicio' },
-    { id: 'portafolio', label: 'Portafolio' },
-    { label: 'Sobre Nosotros', target: '#sobre-nosotros' },
-    { id: 'cotizar', label: 'Cotizar' },
-    { id: 'contacto', label: 'Contacto' }
+    {
+      to: '/',
+      label: 'Inicio',
+      isActive: (loc) => loc.pathname === '/' && loc.hash !== '#sobre-nosotros'
+    },
+    { to: '/portafolio', label: 'Portafolio' },
+    {
+      to: '/#sobre-nosotros',
+      label: 'Sobre Nosotros',
+      isActive: (loc) => loc.pathname === '/' && loc.hash === '#sobre-nosotros'
+    },
+    { to: '/contacto', label: 'Contacto' }
   ];
-
-  const handleClick = (id, target, label) => {
-    if (target) {
-      // Es un enlace de scroll suave dentro de la página
-      // Primero asegúrate de estar en la sección "inicio"
-      setActiveSection('inicio');
-      setSubsectionActiva(label);
-      setMenuAbierto(false);
-      // Luego hace scroll suave al elemento
-      setTimeout(() => {
-        const element = document.querySelector(target);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 100);
-    } else {
-      // Es un cambio de sección normal
-      setActiveSection(id);
-      setSubsectionActiva(null);
-      setMenuAbierto(false);
-    }
-  };
 
   return (
     <nav className="navbar">
@@ -45,18 +31,18 @@ function Navbar({ setActiveSection, activeSection }) {
         
         {/* Desktop Menu */}
         <ul className={`navbar__nav${menuAbierto ? ' active' : ''}`}>
-          {navItems.map((item, index) => (
+          {navItems.map((item) => (
             <li key={item.label}>
-              <a 
-                onClick={() => handleClick(item.id, item.target, item.label)}
-                className={`navbar__link${
-                  item.target 
-                    ? (subsectionActiva === item.label ? ' active' : '')
-                    : (activeSection === item.id && subsectionActiva === null ? ' active' : '')
-                }`}
+              <NavLink
+                to={item.to}
+                className={({ isActive }) => {
+                  const active = item.isActive ? item.isActive(location) : isActive;
+                  return `navbar__link${active ? ' active' : ''}`;
+                }}
+                onClick={() => setMenuAbierto(false)}
               >
                 {item.label}
-              </a>
+              </NavLink>
             </li>
           ))}
         </ul>

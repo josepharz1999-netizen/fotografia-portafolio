@@ -168,6 +168,7 @@ function Portafolio() {
   const [albumSeleccionado, setAlbumSeleccionado] = useState(null);
   const [modoVisualizacion, setModoVisualizacion] = useState(null);
   const [fotosAlbum, setFotosAlbum] = useState([]);
+  const [indicesFotos, setIndicesFotos] = useState({});
 
   const abrirAlbum = (album, modo) => {
     const fotos = generarFotosAlbum(album);
@@ -193,12 +194,26 @@ function Portafolio() {
     }
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndicesFotos(prev => {
+        const nuevo = { ...prev };
+        albumesData.forEach(album => {
+          nuevo[album.id] = ((nuevo[album.id] || 0) + 1) % album.fotosUrls.length;
+        });
+        return nuevo;
+      });
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
       <style>{`
         /* ----- Estilos de la sección Portafolio ----- */
         .portafolio-section {
-          background: linear-gradient(145deg, rgba(121, 73, 146, 1) 0%, rgba(255, 255, 255, 1) 100%);
+          background: #ffffff;
           min-height: 100vh;
           padding: 5rem 1.5rem;
           backdrop-filter: blur(2px);
@@ -207,17 +222,17 @@ function Portafolio() {
           font-size: 2.5rem;
           font-weight: 500;
           text-align: center;
-          color: #ffffff;
+          color: #1a1a1a;
           margin-bottom: 1rem;
           letter-spacing: -0.02em;
         }
         .portafolio-subtitle {
           text-align: center;
-          color: #e0e0e0;
+          color: #6b7280;
           font-weight: 300;
           margin-bottom: 3rem;
           font-size: 1rem;
-          text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+          text-shadow: none;
         }
         .album-grid {
           display: grid;
@@ -230,19 +245,19 @@ function Portafolio() {
 
         /* Tarjetas de álbumes */
         .album-card-item {
-          background: rgba(0, 0, 0, 0.6);
+          background: #ffffff;
           backdrop-filter: blur(10px);
           border-radius: 1.5rem;
           overflow: hidden;
           transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.4);
+          border: 1px solid #e5e7eb;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
         .album-card-item:hover {
           transform: translateY(-8px);
-          border-color: rgba(255, 255, 255, 0.3);
-          box-shadow: 0 30px 40px -12px rgba(0, 0, 0, 0.5);
-          background: rgba(0, 0, 0, 0.75);
+          border-color: #d4af37;
+          box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+          background: #ffffff;
         }
         .album-card-image {
           height: 200px;
@@ -252,7 +267,7 @@ function Portafolio() {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          transition: transform 0.6s ease;
+          transition: transform 0.6s ease, opacity 0.8s ease;
         }
         .album-card-item:hover .album-card-image img {
           transform: scale(1.05);
@@ -263,18 +278,18 @@ function Portafolio() {
         .album-card-title {
           font-size: 1.5rem;
           font-weight: 500;
-          color: #ffffff;
+          color: #1a1a1a;
           margin-bottom: 0.5rem;
         }
         .album-card-description {
-          color: #d0d0d0;
+          color: #4b5563;
           font-size: 0.9rem;
           line-height: 1.4;
           margin-bottom: 0.75rem;
         }
         .album-card-count {
           font-size: 0.8rem;
-          color: #b0b0b0;
+          color: #6b7280;
           letter-spacing: 0.3px;
           margin-bottom: 1.2rem;
         }
@@ -293,20 +308,21 @@ function Portafolio() {
           transition: all 0.2s ease;
           text-align: center;
           background: transparent;
-          border: 1px solid rgba(255, 255, 255, 0.3);
-          color: #ffffff;
+          border: 1px solid #d4af37;
+          color: #1a1a1a;
         }
         .album-card-btn.primary {
-          background: #ffffff;
-          color: #000000;
+          background: #000000;
+          color: #ffffff;
           border: none;
+          font-weight: 600;
         }
         .album-card-btn.primary:hover {
-          background: #e0e0e0;
+          background: #1a1a1a;
           transform: translateY(-2px);
         }
         .album-card-btn.secondary:hover {
-          background: rgba(255, 255, 255, 0.1);
+          background: rgba(212, 175, 55, 0.1);
           transform: translateY(-2px);
         }
 
@@ -484,22 +500,30 @@ function Portafolio() {
         .galeria-title {
           font-size: 1.8rem;
           font-weight: 500;
-          color: white;
+          color: #ffffff;
           margin: 0;
         }
         .galeria-close-btn {
-          background: rgba(255, 255, 255, 0.1);
-          border: none;
-          width: 2.5rem;
-          height: 2.5rem;
+          background: rgba(255, 255, 255, 0.15);
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          width: 2.8rem;
+          height: 2.8rem;
           border-radius: 50%;
-          font-size: 1.2rem;
+          font-size: 1.4rem;
           color: white;
           cursor: pointer;
-          transition: background 0.2s;
+          transition: all 0.2s;
+          flex-shrink: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          line-height: 1;
+          padding: 0;
         }
         .galeria-close-btn:hover {
-          background: rgba(255, 255, 255, 0.3);
+          background: rgba(255, 255, 255, 0.25);
+          border-color: rgba(255, 255, 255, 0.5);
+          transform: scale(1.05);
         }
         .galeria-grid {
           display: grid;
@@ -534,8 +558,9 @@ function Portafolio() {
         .galeria-item-text {
           padding: 0.8rem;
           text-align: center;
-          color: #cccccc;
-          font-size: 0.8rem;
+          color: #e5e7eb;
+          font-size: 0.85rem;
+          font-weight: 500;
         }
         .galeria-load-more {
           text-align: center;
@@ -573,26 +598,26 @@ function Portafolio() {
         <p className="portafolio-subtitle">Selecciona un álbum para ver las fotos</p>
 
         <div className="album-grid">
-          {albumesData.map(album => (
+          {albumesData.map(album => {
+            const fotoActual = album.fotosUrls[indicesFotos[album.id] || 0];
+            return (
             <div key={album.id} className="album-card-item">
               <div className="album-card-image">
-                <img src={album.portada} alt={album.nombre} />
+                <img src={fotoActual} alt={album.nombre} />
               </div>
               <div className="album-card-content">
                 <h3 className="album-card-title">{album.nombre}</h3>
                 <p className="album-card-description">{album.descripcion}</p>
                 <p className="album-card-count">{album.fotosUrls.length} fotografías</p>
                 <div className="album-card-buttons">
-                  <button onClick={() => abrirAlbum(album, 'carrusel')} className="album-card-btn primary">
-                    ▶ Presentación
-                  </button>
-                  <button onClick={() => abrirAlbum(album, 'galeria')} className="album-card-btn secondary">
-                    🖼️ Galería
+                  <button onClick={() => abrirAlbum(album, 'galeria')} className="album-card-btn primary">
+                    ✨ Ver Galería
                   </button>
                 </div>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
