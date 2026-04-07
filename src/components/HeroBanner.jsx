@@ -181,7 +181,7 @@ function HeroBanner() {
             <div
               className="inline-block mb-8 px-5 py-1.5 rounded-full text-xs font-medium tracking-wider uppercase bg-white/5 backdrop-blur-sm border border-white/10 text-white/80"
             >
-              Estudio Fotográfico
+              {/*Estudio Fotográfico*/}
             </div>
 
             {/* Título con animación brillante */}
@@ -189,7 +189,7 @@ function HeroBanner() {
               className="text-6xl sm:text-7xl md:text-8xl font-bold mb-8 leading-tight tracking-tight title-shine"
               style={{ letterSpacing: '-0.02em' }}
             >
-              FotoArt Studio
+              <img src="../images/logo1.png" alt="Logo" className="navbar__logo" style={{height: '150px', width: 'auto' }} />
             </h1>
 
          <p

@@ -8,8 +8,8 @@ function SobreNosotros() {
       <div className="about-container">
         {/* Encabezado */}
         <div className="about-header">
-          <h1 className="about-title">Sobre FotoArt Studio</h1>
-          <p className="about-subtitle">Capturando historias, creando recuerdos eternos desde 2015</p>
+          <h1 className="about-title">Sobre Joseph</h1>
+          <p className="about-subtitle">Capturando recuerdos eternos desde 2017</p>
         </div>
 
         {/* Contenido principal */}
@@ -17,7 +17,7 @@ function SobreNosotros() {
           <div className="about-text-block">
             <h2>Mi Historia</h2>
             <p>
-              Hola, soy Joseph. Detrás de FotoArt Studio no hay una gran empresa ni un equipo de profesionales con años de estudio. Estoy yo solo, con mi cámara, mi computadora y muchas ganas de hacer algo bonito.
+              Hola, soy Joseph. Detrás de mi no hay una gran empresa ni un equipo de profesionales con años de estudio. Estoy yo solo, con mi cámara, mi computadora y muchas ganas de hacer algo bonito.
             </p>
             <p>
               Empecé en 2017, por hobby, sin pensar que la fotografía se convertiría en algo tan importante para mí. Me gusta crear imágenes que emocionen, que cuenten algo real. No busco la perfección técnica, busco esa chispa que hace que una foto valga más que mil palabras.

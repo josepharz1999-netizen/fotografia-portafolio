@@ -13,7 +13,7 @@ function Footer() {
           {/* Marca */}
           <div className="footer-section">
             <div className="footer-brand-logo">
-              <img src="/logo.svg" alt="Joseph Ramirez Photographer Logo" />
+              <img src="../images/logo1.png" alt="Logo" className="navbar__logo" style={{height: '40px', width: 'auto' }} />
             </div>
             <p className="footer-brand-description">
               Capturamos momentos que se convierten en recuerdos. Fotografía profesional con pasión y arte.
@@ -58,7 +58,7 @@ function Footer() {
 
         {/* Pie de página */}
         <div className="footer-bottom">
-          <p>&copy; {currentYear} FotoArt Studio. Todos los derechos reservados.</p>
+          <p>&copy; {currentYear} Joseph Photographer. Todos los derechos reservados.</p>
           <div className="footer-bottom-links">
             <a href="#">Política de privacidad</a>
             <span>•</span>

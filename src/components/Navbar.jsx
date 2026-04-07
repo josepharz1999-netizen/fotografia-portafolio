@@ -24,10 +24,8 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar__container">
-        {/* Logo */}
-        <div className="navbar__logo">
-          FotoArt Studio
-        </div>
+        <img src="../images/logo.png" alt="Logo" className="navbar__logo" style={{height: '50px', width: 'auto' }} />
+      
         
         {/* Desktop Menu */}
         <ul className={`navbar__nav${menuAbierto ? ' active' : ''}`}>
