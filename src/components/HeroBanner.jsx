@@ -8,14 +8,17 @@ function HeroBanner() {
   const containerRef = useRef(null);
 
   const photos = [
-    { id: 1, url: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=500&h=600&fit=crop', category: 'Paisaje' },
-    { id: 2, url: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=500&h=600&fit=crop', category: 'Bodas' },
-    { id: 3, url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=600&fit=crop', category: 'Retrato' },
-    { id: 4, url: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=500&h=600&fit=crop', category: 'Producto' },
-    { id: 5, url: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=500&h=600&fit=crop', category: 'Arquitectura' },
-    { id: 6, url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&h=600&fit=crop', category: 'Naturaleza' },
-    { id: 7, url: 'https://images.unsplash.com/photo-1531306728370-e2ebd9d7bb99?w=500&h=600&fit=crop', category: 'Urbano' },
-    { id: 8, url: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500&h=600&fit=crop', category: 'Comercial' },
+    { id: 1, url: '/images/Amanda/amanda1.jpeg', category: 'Retrato' },
+    { id: 2, url: '/images/Amanda/amanda2.jpeg', category: 'Retrato' },
+    { id: 3, url: '/images/Amanda/amanda3.jpeg', category: 'Retrato' },
+    { id: 4, url: '/images/Amanda/amanda4.jpeg', category: 'Retrato' },
+    { id: 5, url: '/images/Amanda/amanda5.jpeg', category: 'Retrato' },
+    { id: 6, url: '/images/Amanda/amanda6.jpeg', category: 'Retrato' },
+    { id: 7, url: '/images/Ricardo/Ricardo1.jpg', category: 'Evento' },
+    { id: 8, url: '/images/Ricardo/Ricardo2.jpg', category: 'Evento' },
+    { id: 9, url: '/images/Ricardo/Ricardo3.jpg', category: 'Evento' },
+    { id: 10, url: '/images/Ricardo/Ricardo4.jpg', category: 'Evento' },
+    { id: 11, url: '/images/Ricardo/Ricardo5.jpg', category: 'Evento' },
   ];
 
   const infinitePhotos = [...photos, ...photos, ...photos];
@@ -224,10 +227,11 @@ function HeroBanner() {
             <div
               className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto pt-6 border-t border-white/10 mt-10" style={{marginTop:"4vh"}}
             >
-              {[
+              {/*[
                 { number: '500+', label: 'Sesiones' },
                 { number: '10+', label: 'Años' },
                 { number: '1000+', label: 'Sonrisas' },
+              
               ].map((stat, i) => (
                 <div
                   key={i}
@@ -237,7 +241,7 @@ function HeroBanner() {
                   <div className="text-3xl sm:text-4xl font-bold text-white mb-1">{stat.number}</div>
                   <div className="text-gray-400 text-xs uppercase tracking-wider">{stat.label}</div>
                 </div>
-              ))}
+              ))*/}
             </div>
           </div>
         </div>

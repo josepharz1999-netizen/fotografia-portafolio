@@ -1,93 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
-
-const albumesData = [
-  { 
-    id: 1, 
-    nombre: "Bodas", 
-    descripcion: "Emoción y luz en cada instante", 
-    fotos: 12, 
-    icono: "💍",
-    portada: "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=400&fit=crop",
-    fotosUrls: Array(12).fill().map((_, i) => 
-      `https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=400&fit=crop&sig=${i}`
-    )
-  },
-  { 
-    id: 2, 
-    nombre: "Retratos", 
-    descripcion: "Autenticidad y presencia", 
-    fotos: 10, 
-    icono: "👤",
-    portada: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&h=400&fit=crop",
-    fotosUrls: [
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&h=400&fit=crop",
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop",
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&h=400&fit=crop",
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&h=400&fit=crop",
-      "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&h=400&fit=crop",
-      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&h=400&fit=crop",
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&h=400&fit=crop",
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=600&h=400&fit=crop",
-      "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=600&h=400&fit=crop",
-      "https://images.unsplash.com/photo-1504593811423-6dd665756598?w=600&h=400&fit=crop"
-    ]
-  },
-  { 
-    id: 3, 
-    nombre: "Paisajes", 
-    descripcion: "Diálogo con el territorio", 
-    fotos: 15, 
-    icono: "🏔️",
-    portada: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop",
-    fotosUrls: Array(15).fill().map((_, i) => 
-      `https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop&sig=${i}`
-    )
-  },
-  { 
-    id: 4, 
-    nombre: "Eventos", 
-    descripcion: "Celebraciones y encuentros", 
-    fotos: 8, 
-    icono: "🎉",
-    portada: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=600&h=400&fit=crop",
-    fotosUrls: Array(8).fill().map((_, i) => 
-      `https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=600&h=400&fit=crop&sig=${i}`
-    )
-  }
-];
-
-const generarFotosAlbum = (album) => {
-  return album.fotosUrls.map((url, idx) => ({
-    id: idx,
-    titulo: `${album.nombre} - Foto ${idx + 1}`,
-    url: url
-  }));
-};
+import React, { useState, useEffect, useCallback } from 'react';
+import { albumesData, generarFotosAlbum } from '../data/albumesData';
 
 function Carrusel({ fotos, albumNombre, onCerrar }) {
   const [indiceActual, setIndiceActual] = useState(0);
-  const [autoplay, setAutoplay] = useState(true);
-  const intervaloRef = useRef(null);
 
-  const siguienteFoto = () => {
+  const siguienteFoto = useCallback(() => {
     setIndiceActual((prev) => (prev + 1) % fotos.length);
-  };
+  }, [fotos.length]);
 
-  const anteriorFoto = () => {
+  const anteriorFoto = useCallback(() => {
     setIndiceActual((prev) => (prev - 1 + fotos.length) % fotos.length);
-  };
-
-  useEffect(() => {
-    if (autoplay) {
-      intervaloRef.current = setInterval(siguienteFoto, 3000);
-    }
-    return () => {
-      if (intervaloRef.current) clearInterval(intervaloRef.current);
-    };
-  }, [autoplay, fotos.length]);
-
-  const pausarAutoplay = () => setAutoplay(false);
-  const reanudarAutoplay = () => setAutoplay(true);
+  }, [fotos.length]);
 
   return (
     <div className="carrusel-overlay-backdrop">
@@ -101,8 +24,6 @@ function Carrusel({ fotos, albumNombre, onCerrar }) {
               src={fotos[indiceActual].url}
               alt={fotos[indiceActual].titulo}
               className="carrusel-image"
-              onMouseEnter={pausarAutoplay}
-              onMouseLeave={reanudarAutoplay}
             />
             <div className="carrusel-counter">
               {indiceActual + 1} / {fotos.length}
@@ -115,16 +36,11 @@ function Carrusel({ fotos, albumNombre, onCerrar }) {
             <div
               key={idx}
               className={`miniatura${idx === indiceActual ? ' activa' : ''}`}
-              onClick={() => { setIndiceActual(idx); pausarAutoplay(); setTimeout(reanudarAutoplay, 3000); }}
+              onClick={() => setIndiceActual(idx)}
             >
               <img src={foto.url} alt={foto.titulo} />
             </div>
           ))}
-        </div>
-        <div className="carrusel-controls">
-          <button onClick={() => setAutoplay(!autoplay)} className="carrusel-play-btn">
-            {autoplay ? '⏸ Pausar' : '▶ Reproducir'}
-          </button>
         </div>
       </div>
     </div>
@@ -168,7 +84,6 @@ function Portafolio() {
   const [albumSeleccionado, setAlbumSeleccionado] = useState(null);
   const [modoVisualizacion, setModoVisualizacion] = useState(null);
   const [fotosAlbum, setFotosAlbum] = useState([]);
-  const [indicesFotos, setIndicesFotos] = useState({});
 
   const abrirAlbum = (album, modo) => {
     const fotos = generarFotosAlbum(album);
@@ -188,24 +103,14 @@ function Portafolio() {
     if (albumGuardado) {
       const album = albumesData.find(a => a.nombre === albumGuardado);
       if (album) {
-        abrirAlbum(album, 'galeria');
+        const fotos = generarFotosAlbum(album);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setFotosAlbum(fotos);
+        setAlbumSeleccionado(album);
+        setModoVisualizacion('galeria');
         sessionStorage.removeItem('albumSeleccionado');
       }
     }
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndicesFotos(prev => {
-        const nuevo = { ...prev };
-        albumesData.forEach(album => {
-          nuevo[album.id] = ((nuevo[album.id] || 0) + 1) % album.fotosUrls.length;
-        });
-        return nuevo;
-      });
-    }, 2000);
-
-    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -344,30 +249,36 @@ function Portafolio() {
         .carrusel-container {
           background: #0a0a0a;
           border-radius: 2rem;
-          padding: 1.5rem;
-          max-width: 90vw;
-          max-height: 90vh;
-          overflow: auto;
+          padding: 1.8rem;
+          max-width: 95vw;
+          max-height: 95vh;
+          overflow: hidden;
           position: relative;
           border: 1px solid rgba(255, 255, 255, 0.15);
-          box-shadow: 0 30px 50px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 30px 60px rgba(0, 0, 0, 0.55);
         }
         .carrusel-close-btn {
           position: absolute;
           top: 1rem;
           right: 1rem;
-          background: rgba(255, 255, 255, 0.1);
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(255, 255, 255, 0.15);
           border: none;
-          width: 2.2rem;
-          height: 2.2rem;
+          width: 2.6rem;
+          height: 2.6rem;
           border-radius: 50%;
-          font-size: 1.2rem;
+          font-size: 1.4rem;
+          line-height: 1;
           color: white;
           cursor: pointer;
-          transition: background 0.2s;
+          transition: background 0.2s, transform 0.2s;
+          box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
         }
         .carrusel-close-btn:hover {
-          background: rgba(255, 255, 255, 0.3);
+          background: rgba(255, 255, 255, 0.32);
+          transform: scale(1.05);
         }
         .carrusel-title {
           text-align: center;
@@ -381,67 +292,78 @@ function Portafolio() {
           align-items: center;
           justify-content: center;
           gap: 1rem;
+          flex-wrap: wrap;
         }
         .carrusel-btn {
-          background: rgba(255, 255, 255, 0.1);
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(255, 255, 255, 0.15);
           border: none;
-          width: 2.5rem;
-          height: 2.5rem;
+          width: 4rem;
+          height: 4rem;
           border-radius: 50%;
-          font-size: 1.8rem;
+          font-size: 2.4rem;
+          line-height: 1;
           color: white;
           cursor: pointer;
           transition: all 0.2s;
+          flex-shrink: 0;
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
         }
         .carrusel-btn:hover {
-          background: rgba(255, 255, 255, 0.3);
+          background: rgba(255, 255, 255, 0.28);
           transform: scale(1.05);
         }
         .carrusel-image-container {
           position: relative;
-          flex: 1;
-          max-width: 80%;
+          flex: 1 1 720px;
+          max-width: 90%;
+          max-height: 82vh;
           text-align: center;
         }
         .carrusel-image {
-          max-width: 100%;
-          max-height: 60vh;
+          width: 100%;
+          max-height: 78vh;
           object-fit: contain;
-          border-radius: 1rem;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+          border-radius: 1.25rem;
+          box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
         }
         .carrusel-counter {
           position: absolute;
           bottom: 0.8rem;
           right: 0.8rem;
           background: rgba(0, 0, 0, 0.7);
-          padding: 0.2rem 0.6rem;
+          padding: 0.3rem 0.75rem;
           border-radius: 2rem;
-          font-size: 0.8rem;
+          font-size: 0.85rem;
           color: white;
         }
         .carrusel-thumbnails {
           display: flex;
+          flex-wrap: wrap;
           gap: 0.8rem;
           overflow-x: auto;
           margin-top: 1.5rem;
-          padding: 0.5rem;
+          padding: 0.5rem 0;
           justify-content: center;
+          width: 100%;
         }
         .miniatura {
-          width: 60px;
-          height: 60px;
+          width: 100px;
+          height: 70px;
           flex-shrink: 0;
-          border-radius: 0.5rem;
+          border-radius: 0.75rem;
           overflow: hidden;
           cursor: pointer;
-          opacity: 0.6;
-          transition: opacity 0.2s, transform 0.2s;
+          opacity: 0.65;
+          transition: opacity 0.2s, transform 0.2s, border-color 0.2s;
           border: 2px solid transparent;
+          background: rgba(255, 255, 255, 0.05);
         }
         .miniatura.activa {
           opacity: 1;
-          border-color: white;
+          border-color: #d4af37;
           transform: scale(1.05);
         }
         .miniatura img {
@@ -450,7 +372,8 @@ function Portafolio() {
           object-fit: cover;
         }
         .miniatura:hover {
-          opacity: 0.9;
+          opacity: 0.95;
+          transform: scale(1.05);
         }
         .carrusel-controls {
           text-align: center;
@@ -481,10 +404,10 @@ function Portafolio() {
           backdrop-filter: blur(8px);
           z-index: 2000;
           overflow-y: auto;
-          padding: 2rem;
+          padding: 1.5rem;
         }
         .galeria-container {
-          max-width: 1200px;
+          max-width: 95vw;
           margin: 0 auto;
           background: #0a0a0a;
           border-radius: 2rem;
@@ -599,19 +522,18 @@ function Portafolio() {
 
         <div className="album-grid">
           {albumesData.map(album => {
-            const fotoActual = album.fotosUrls[indicesFotos[album.id] || 0];
             return (
             <div key={album.id} className="album-card-item">
               <div className="album-card-image">
-                <img src={fotoActual} alt={album.nombre} />
+                 <img src={album.portada} alt={album.nombre} />
               </div>
               <div className="album-card-content">
                 <h3 className="album-card-title">{album.nombre}</h3>
                 <p className="album-card-description">{album.descripcion}</p>
                 <p className="album-card-count">{album.fotosUrls.length} fotografías</p>
                 <div className="album-card-buttons">
-                  <button onClick={() => abrirAlbum(album, 'galeria')} className="album-card-btn primary">
-                    ✨ Ver Galería
+                  <button onClick={() => abrirAlbum(album, 'carrusel')} className="album-card-btn primary">
+                    ✨ Ver Carrusel
                   </button>
                 </div>
               </div>

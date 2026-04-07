@@ -925,13 +925,12 @@ footer {
 
 .album-carousel-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
 }
 
 @media (min-width: 768px) {
   .album-carousel-grid {
-    grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
   }
 }
@@ -945,18 +944,20 @@ footer {
 /* Album Carrusel Card */
 .album-carousel-card {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 24rem;
   background-color: white;
   border-radius: 1.5rem;
   overflow: hidden;
-  transition: all 0.5s var(--transition-smooth);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
   box-shadow: var(--shadow-sm);
   border: 1px solid rgba(0, 0, 0, 0.05);
-  border-color: rgba(0, 0, 0, 0.05);
 }
 
 .album-carousel-card:hover {
   box-shadow: var(--shadow-2xl);
-  transform: translateY(-12px) scale(1.05);
+  transform: translateY(-6px);
   border-color: rgba(212, 175, 55, 0.2);
 }
 
@@ -979,7 +980,8 @@ footer {
 .carousel-image-container {
   position: relative;
   width: 100%;
-  height: 15rem;
+  height: 16.5rem;
+  max-height: 18rem;
   background: linear-gradient(to bottom right, #f3f4f6, #e5e7eb);
   overflow: hidden;
   display: flex;
@@ -989,7 +991,7 @@ footer {
 
 .carrusel-slide {
   opacity: 0;
-  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.4s ease;
   position: absolute;
   inset: 0;
 }
@@ -999,30 +1001,30 @@ footer {
 }
 
 .carrusel-slide.active img {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .carrusel-slide img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.5s ease;
 }
 
 /* Navigation Buttons */
 .carousel-nav-btn {
   position: absolute;
   top: 50%;
-  width: 36px;
-  height: 36px;
-  background-color: rgba(0, 0, 0, 0.5);
+  width: 44px;
+  height: 44px;
+  background-color: rgba(0, 0, 0, 0.55);
   color: white;
   border: none;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   opacity: 0;
   transition: all var(--transition-smooth);
   z-index: 10;
@@ -1033,7 +1035,7 @@ footer {
 
 .carousel-nav-btn:hover {
   background-color: rgba(0, 0, 0, 0.9);
-  transform: translateY(-50%) scale(1.1);
+  transform: translateY(-50%) scale(1.08);
 }
 
 .album-carousel-card:hover .carousel-nav-btn {
@@ -1046,6 +1048,14 @@ footer {
 
 .carousel-nav-btn.right {
   right: 0.75rem;
+}
+
+@media (max-width: 640px) {
+  .carousel-nav-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.25rem;
+  }
 }
 
 /* Carousel Indicators */
@@ -1098,6 +1108,10 @@ footer {
   padding: 1.5rem;
   position: relative;
   z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1 1 auto;
 }
 
 .album-carousel-title {
