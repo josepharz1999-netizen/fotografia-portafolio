@@ -1,10 +1,13 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { albumesData, generarFotosAlbum } from '../data/albumesData';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { albumesData, generarFotosAlbum, getWebPUrl } from '../data/albumesData';
 
 function Carrusel({ fotos, albumNombre, onCerrar }) {
   const [indiceActual, setIndiceActual] = useState(0);
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
+  const [imagenesCargadas, setImagenesCargadas] = useState(new Set([0, 1, 2])); // Cargar primeras 3 imágenes
+  const [mostrarTodasMiniaturas, setMostrarTodasMiniaturas] = useState(false);
+  const observerRef = useRef(null);
 
   const siguienteFoto = useCallback(() => {
     setIndiceActual((prev) => (prev + 1) % fotos.length);
@@ -40,6 +43,54 @@ function Carrusel({ fotos, albumNombre, onCerrar }) {
     }
   };
 
+  // Lazy loading: cargar imágenes cuando se navega cerca de ellas
+  useEffect(() => {
+    const nuevasImagenes = new Set(imagenesCargadas);
+    const rangoCarga = 3; // Cargar 3 imágenes antes y después de la actual
+
+    for (let i = Math.max(0, indiceActual - rangoCarga);
+         i <= Math.min(fotos.length - 1, indiceActual + rangoCarga);
+         i++) {
+      nuevasImagenes.add(i);
+    }
+
+    setImagenesCargadas(nuevasImagenes);
+  }, [indiceActual, fotos.length]);
+
+  // Intersection Observer para thumbnails
+  useEffect(() => {
+    if (!observerRef.current) {
+      observerRef.current = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const img = entry.target;
+              const src = img.dataset.src;
+              if (src) {
+                img.src = src;
+                img.removeAttribute('data-src');
+                observerRef.current.unobserve(img);
+              }
+            }
+          });
+        },
+        { rootMargin: '50px' }
+      );
+    }
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, []);
+
+  const cargarMasMiniaturas = () => {
+    setMostrarTodasMiniaturas(true);
+  };
+
+  const miniaturasMostradas = mostrarTodasMiniaturas ? fotos : fotos.slice(0, 12);
+
   return (
     <div className="carrusel-overlay-backdrop">
       <div className="carrusel-container">
@@ -53,11 +104,24 @@ function Carrusel({ fotos, albumNombre, onCerrar }) {
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
           >
-            <img
-              src={fotos[indiceActual].url}
-              alt={fotos[indiceActual].titulo}
-              className="carrusel-image"
-            />
+            {imagenesCargadas.has(indiceActual) ? (
+              <picture>
+                <source
+                  srcSet={fotos[indiceActual].webpUrl}
+                  type="image/webp"
+                />
+                <img
+                  src={fotos[indiceActual].url}
+                  alt={fotos[indiceActual].titulo}
+                  className="carrusel-image"
+                  loading="eager"
+                />
+              </picture>
+            ) : (
+              <div className="carrusel-image-placeholder">
+                <div className="loading-spinner"></div>
+              </div>
+            )}
             <div className="carrusel-counter">
               {indiceActual + 1} / {fotos.length}
             </div>
@@ -65,15 +129,34 @@ function Carrusel({ fotos, albumNombre, onCerrar }) {
           <button onClick={siguienteFoto} className="carrusel-btn">›</button>
         </div>
         <div className="carrusel-thumbnails">
-          {fotos.map((foto, idx) => (
+          {miniaturasMostradas.map((foto, idx) => (
             <div
               key={idx}
               className={`miniatura${idx === indiceActual ? ' activa' : ''}`}
               onClick={() => setIndiceActual(idx)}
             >
-              <img src={foto.url} alt={foto.titulo} />
+              {imagenesCargadas.has(idx) ? (
+                <picture>
+                  <source
+                    srcSet={foto.webpUrl}
+                    type="image/webp"
+                  />
+                  <img
+                    src={foto.url}
+                    alt={foto.titulo}
+                    loading="lazy"
+                  />
+                </picture>
+              ) : (
+                <div className="miniatura-placeholder"></div>
+              )}
             </div>
           ))}
+          {!mostrarTodasMiniaturas && fotos.length > 12 && (
+            <div className="miniatura-load-more" onClick={cargarMasMiniaturas}>
+              <span>+{fotos.length - 12}</span>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -324,6 +407,27 @@ function Portafolio() {
           border-radius: 1.25rem;
           box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
         }
+        .carrusel-image-placeholder {
+          width: 100%;
+          height: 78vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: 1.25rem;
+        }
+        .loading-spinner {
+          width: 40px;
+          height: 40px;
+          border: 3px solid rgba(255, 255, 255, 0.3);
+          border-top: 3px solid #d4af37;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
         .carrusel-counter {
           position: absolute;
           bottom: 0.8rem;
@@ -369,6 +473,33 @@ function Portafolio() {
         .miniatura:hover {
           opacity: 0.95;
           transform: scale(1.05);
+        }
+        .miniatura-placeholder {
+          width: 100%;
+          height: 100%;
+          background: rgba(255, 255, 255, 0.1);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .miniatura-load-more {
+          width: 100px;
+          height: 70px;
+          flex-shrink: 0;
+          border-radius: 0.75rem;
+          background: rgba(255, 255, 255, 0.1);
+          border: 2px dashed rgba(255, 255, 255, 0.3);
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-weight: 500;
+          transition: all 0.2s;
+        }
+        .miniatura-load-more:hover {
+          background: rgba(255, 255, 255, 0.2);
+          border-color: rgba(255, 255, 255, 0.5);
         }
 
         /* Responsive */

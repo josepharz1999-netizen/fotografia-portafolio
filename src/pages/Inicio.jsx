@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles.css';
 import SobreNosotros from './SobreNosotros';
-import { albumesData } from '../data/albumesData';
+import { albumesData, getWebPUrl } from '../data/albumesData';
 
 
 function AlbumCarrusel({ album, onVerAlbum }) {
@@ -48,7 +48,17 @@ function AlbumCarrusel({ album, onVerAlbum }) {
               key={idx}
               className={`carrusel-slide${idx === indiceActual ? ' active' : ''}`}
             >
-              <img src={foto} alt={`${album.nombre} ${idx + 1}`} />
+              <picture>
+                <source
+                  srcSet={getWebPUrl(foto)}
+                  type="image/webp"
+                />
+                <img
+                  src={foto}
+                  alt={`${album.nombre} ${idx + 1}`}
+                  loading="lazy"
+                />
+              </picture>
             </div>
           ))}
         </div>

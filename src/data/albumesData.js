@@ -232,12 +232,20 @@ export const generarFotosAlbum = (album) => {
     return album.fotosUrls.map((url, idx) => ({
       id: idx,
       titulo: `${album.nombre} - Foto ${idx + 1}`,
-      url: url
+      url: url,
+      webpUrl: getWebPUrl(url)
     }));
   }
   return album.fotosPreview.map((url, idx) => ({
     id: idx,
     titulo: `${album.nombre} - Foto ${idx + 1}`,
-    url: url
+    url: url,
+    webpUrl: getWebPUrl(url)
   }));
+};
+
+// Función helper para obtener URL WebP
+export const getWebPUrl = (originalUrl) => {
+  if (!originalUrl) return originalUrl;
+  return originalUrl.replace('/images/', '/images-webp/').replace(/\.(jpg|jpeg|png)$/i, '.webp');
 };
