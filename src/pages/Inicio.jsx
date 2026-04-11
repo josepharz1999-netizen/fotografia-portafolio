@@ -97,7 +97,7 @@ function AlbumCarrusel({ album, onVerAlbum }) {
           className="album-carousel-btn"
           onClick={() => onVerAlbum(album.nombre)}
         >
-          <span className="album-carousel-btn-text">Ver álbum →</span>
+          <span className="album-carousel-btn-text">Ver más</span>
         </button>
       </div>
     </div>

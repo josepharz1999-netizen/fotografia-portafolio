@@ -3,6 +3,8 @@ import { albumesData, generarFotosAlbum } from '../data/albumesData';
 
 function Carrusel({ fotos, albumNombre, onCerrar }) {
   const [indiceActual, setIndiceActual] = useState(0);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
 
   const siguienteFoto = useCallback(() => {
     setIndiceActual((prev) => (prev + 1) % fotos.length);
@@ -12,6 +14,32 @@ function Carrusel({ fotos, albumNombre, onCerrar }) {
     setIndiceActual((prev) => (prev - 1 + fotos.length) % fotos.length);
   }, [fotos.length]);
 
+  // Mínima distancia para considerar un swipe
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      siguienteFoto();
+    }
+    if (isRightSwipe) {
+      anteriorFoto();
+    }
+  };
+
   return (
     <div className="carrusel-overlay-backdrop">
       <div className="carrusel-container">
@@ -19,7 +47,12 @@ function Carrusel({ fotos, albumNombre, onCerrar }) {
         <h2 className="carrusel-title">{albumNombre}</h2>
         <div className="carrusel-main">
           <button onClick={anteriorFoto} className="carrusel-btn">‹</button>
-          <div className="carrusel-image-container">
+          <div
+            className="carrusel-image-container"
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
             <img
               src={fotos[indiceActual].url}
               alt={fotos[indiceActual].titulo}
@@ -47,54 +80,18 @@ function Carrusel({ fotos, albumNombre, onCerrar }) {
   );
 }
 
-function GaleriaCompleta({ fotos, albumNombre, onCerrar }) {
-  const [mostrarTodas, setMostrarTodas] = useState(false);
-  const fotosMostradas = mostrarTodas ? fotos : fotos.slice(0, 6);
-
-  return (
-    <div className="galeria-overlay-backdrop">
-      <div className="galeria-container">
-        <div className="galeria-header">
-          <h2 className="galeria-title">{albumNombre}</h2>
-          <button onClick={onCerrar} className="galeria-close-btn">✕</button>
-        </div>
-        <div className="galeria-grid">
-          {fotosMostradas.map((foto, idx) => (
-            <div key={idx} className="galeria-item">
-              <div className="galeria-item-image-container">
-                <img src={foto.url} alt={foto.titulo} />
-              </div>
-              <p className="galeria-item-text">{foto.titulo}</p>
-            </div>
-          ))}
-        </div>
-        {fotos.length > 6 && (
-          <div className="galeria-load-more">
-            <button onClick={() => setMostrarTodas(!mostrarTodas)} className="galeria-load-more-btn">
-              {mostrarTodas ? 'Mostrar menos' : `Ver todas las fotos (${fotos.length - 6} restantes)`}
-            </button>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
-
 function Portafolio() {
   const [albumSeleccionado, setAlbumSeleccionado] = useState(null);
-  const [modoVisualizacion, setModoVisualizacion] = useState(null);
   const [fotosAlbum, setFotosAlbum] = useState([]);
 
-  const abrirAlbum = (album, modo) => {
+  const abrirAlbum = (album) => {
     const fotos = generarFotosAlbum(album);
     setFotosAlbum(fotos);
     setAlbumSeleccionado(album);
-    setModoVisualizacion(modo);
   };
 
   const cerrarVisualizacion = () => {
     setAlbumSeleccionado(null);
-    setModoVisualizacion(null);
     setFotosAlbum([]);
   };
 
@@ -104,10 +101,8 @@ function Portafolio() {
       const album = albumesData.find(a => a.nombre === albumGuardado);
       if (album) {
         const fotos = generarFotosAlbum(album);
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         setFotosAlbum(fotos);
         setAlbumSeleccionado(album);
-        setModoVisualizacion('galeria');
         sessionStorage.removeItem('albumSeleccionado');
       }
     }
@@ -375,134 +370,6 @@ function Portafolio() {
           opacity: 0.95;
           transform: scale(1.05);
         }
-        .carrusel-controls {
-          text-align: center;
-          margin-top: 1rem;
-        }
-        .carrusel-play-btn {
-          background: rgba(0, 0, 0, 0.7);
-          border: 1px solid rgba(255, 255, 255, 0.3);
-          padding: 0.4rem 1.2rem;
-          border-radius: 2rem;
-          color: white;
-          cursor: pointer;
-          font-size: 0.8rem;
-          transition: all 0.2s;
-        }
-        .carrusel-play-btn:hover {
-          background: rgba(0, 0, 0, 0.9);
-        }
-
-        /* ----- Estilos de la galería completa ----- */
-        .galeria-overlay-backdrop {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(0, 0, 0, 0.95);
-          backdrop-filter: blur(8px);
-          z-index: 2000;
-          overflow-y: auto;
-          padding: 1.5rem;
-        }
-        .galeria-container {
-          max-width: 95vw;
-          margin: 0 auto;
-          background: #0a0a0a;
-          border-radius: 2rem;
-          padding: 2rem;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .galeria-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 2rem;
-        }
-        .galeria-title {
-          font-size: 1.8rem;
-          font-weight: 500;
-          color: #ffffff;
-          margin: 0;
-        }
-        .galeria-close-btn {
-          background: rgba(255, 255, 255, 0.15);
-          border: 1px solid rgba(255, 255, 255, 0.3);
-          width: 2.8rem;
-          height: 2.8rem;
-          border-radius: 50%;
-          font-size: 1.4rem;
-          color: white;
-          cursor: pointer;
-          transition: all 0.2s;
-          flex-shrink: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          line-height: 1;
-          padding: 0;
-        }
-        .galeria-close-btn:hover {
-          background: rgba(255, 255, 255, 0.25);
-          border-color: rgba(255, 255, 255, 0.5);
-          transform: scale(1.05);
-        }
-        .galeria-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-          gap: 1.5rem;
-        }
-        .galeria-item {
-          background: rgba(255, 255, 255, 0.03);
-          border-radius: 1rem;
-          overflow: hidden;
-          transition: transform 0.2s, box-shadow 0.2s;
-          border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .galeria-item:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-          border-color: rgba(255, 255, 255, 0.2);
-        }
-        .galeria-item-image-container {
-          height: 200px;
-          overflow: hidden;
-        }
-        .galeria-item-image-container img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          transition: transform 0.4s;
-        }
-        .galeria-item:hover .galeria-item-image-container img {
-          transform: scale(1.05);
-        }
-        .galeria-item-text {
-          padding: 0.8rem;
-          text-align: center;
-          color: #e5e7eb;
-          font-size: 0.85rem;
-          font-weight: 500;
-        }
-        .galeria-load-more {
-          text-align: center;
-          margin-top: 2rem;
-        }
-        .galeria-load-more-btn {
-          background: rgba(255, 255, 255, 0.1);
-          border: 1px solid rgba(255, 255, 255, 0.3);
-          padding: 0.6rem 1.5rem;
-          border-radius: 2rem;
-          color: white;
-          cursor: pointer;
-          transition: all 0.2s;
-          font-size: 0.8rem;
-        }
-        .galeria-load-more-btn:hover {
-          background: rgba(255, 255, 255, 0.2);
-          transform: translateY(-2px);
-        }
 
         /* Responsive */
         @media (max-width: 768px) {
@@ -511,8 +378,6 @@ function Portafolio() {
           .carrusel-container { padding: 1rem; }
           .carrusel-btn { width: 2rem; height: 2rem; font-size: 1.2rem; }
           .miniatura { width: 50px; height: 50px; }
-          .galeria-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; }
-          .galeria-item-image-container { height: 140px; }
         }
       `}</style>
 
@@ -521,38 +386,28 @@ function Portafolio() {
         <p className="portafolio-subtitle">Selecciona un álbum para ver las fotos</p>
 
         <div className="album-grid">
-          {albumesData.map(album => {
-            return (
+          {albumesData.map(album => (
             <div key={album.id} className="album-card-item">
               <div className="album-card-image">
-                 <img src={album.portada} alt={album.nombre} />
+                <img src={album.portada} alt={album.nombre} />
               </div>
               <div className="album-card-content">
                 <h3 className="album-card-title">{album.nombre}</h3>
                 <p className="album-card-description">{album.descripcion}</p>
                 <p className="album-card-count">{album.fotosUrls.length} fotografías</p>
                 <div className="album-card-buttons">
-                  <button onClick={() => abrirAlbum(album, 'carrusel')} className="album-card-btn primary">
-                    ✨ Ver Carrusel
+                  <button onClick={() => abrirAlbum(album)} className="album-card-btn primary">
+                    Ver Carrusel
                   </button>
                 </div>
               </div>
             </div>
-            );
-          })}
+          ))}
         </div>
       </div>
 
-      {modoVisualizacion === 'carrusel' && albumSeleccionado && (
+      {albumSeleccionado && (
         <Carrusel
-          fotos={fotosAlbum}
-          albumNombre={albumSeleccionado.nombre}
-          onCerrar={cerrarVisualizacion}
-        />
-      )}
-
-      {modoVisualizacion === 'galeria' && albumSeleccionado && (
-        <GaleriaCompleta
           fotos={fotosAlbum}
           albumNombre={albumSeleccionado.nombre}
           onCerrar={cerrarVisualizacion}
