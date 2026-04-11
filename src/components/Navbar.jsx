@@ -15,7 +15,7 @@ function Navbar() {
     { to: '/portafolio', label: 'Portafolio' },
     {
       to: '/#sobre-nosotros',
-      label: 'Sobre Nosotros',
+      label: 'Sobre Mí',
       isActive: (loc) => loc.pathname === '/' && loc.hash === '#sobre-nosotros'
     },
     { to: '/contacto', label: 'Contacto' }

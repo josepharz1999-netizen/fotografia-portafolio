@@ -32,7 +32,7 @@ function SobreNosotros() {
 
           <div className="about-image-container">
             <div className="about-image-placeholder">
-              📷<br/><span className="placeholder-text"><img src="public/images/yo.png" alt="Joseph" /></span>
+              <br/><span className="placeholder-text"><img src="public/images/yo.png" alt="Joseph" /></span>
             </div>
           </div>
         </div>
